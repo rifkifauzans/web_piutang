@@ -9,6 +9,7 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\KompensansiController;
+use App\Http\Controllers\ContractPartnerController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -56,6 +57,8 @@ require __DIR__.'/auth.php';
 Route::get('/', [App\Http\Controllers\LandingPagesController::class, 'landingpages'])->name('landingpages');
 Route::get('/partnerPages', [App\Http\Controllers\LandingPagesController::class, 'partnerPages'])->name('partnerPages');
 Route::get('/admin', [App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
+Route::get('/users/contracts', [ContractPartnerController::class, 'index'])->name('contractPartner');
+Route::get('/contract/{id}', [ContractPartnerController::class, 'show'])->name('detail');
 
 // Users Routes
 Route::get('/users', [UsersController::class, 'index'])->name('listUsers');
