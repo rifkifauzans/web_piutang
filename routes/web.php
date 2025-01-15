@@ -10,6 +10,8 @@ use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\BidangController;
 use App\Http\Controllers\KompensansiController;
 use App\Http\Controllers\ContractPartnerController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\BayarController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -128,3 +130,9 @@ Route::delete('/kontraks/{contractId}/kompensasi/{id}', [KompensansiController::
 Route::get('/kontraks/{contractId}/kompensasi/trash', [KompensansiController::class, 'trashCompenshare'])->name('trashCompenshare');
 Route::patch('/kontraks/{contractId}/kompensasi/{id}/restore', [KompensansiController::class, 'restoreCompenshare'])->name('restoreCompenshare');
 Route::delete('/kontraks/{contractId}/kompensasi/{id}/force', [KompensansiController::class, 'forceDeleteCompenshare'])->name('forceDeleteCompenshare');
+
+// Invoices Routes
+Route::get('/invoices', [InvoiceController::class, 'index'])->name('listInvoices');
+
+// Payments Routes
+Route::get('/payments', [BayarController::class, 'index'])->name('listPayments');

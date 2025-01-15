@@ -98,13 +98,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link" style="">
+              <a href="{{ route('listInvoices') }}" class="nav-link {{ Request::routeIs('listEmployees') ? 'active' : '' }}" style="{{ Request::routeIs('listInvoices') ? 'color: #000000;' : 'color: #ffffff;' }}">
                 <i class="nav-icon fas fa-file-invoice-dollar"></i>
                 <p>Faktur</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link" style="">
+              <a href="{{ route('listPayments') }}" class="nav-link {{ Request::routeIs('listPayments') ? 'active' : '' }}" style="{{ Request::routeIs('listPayments') ? 'color: #000000;' : 'color: #ffffff;' }}">
                 <i class="nav-icon fas fa-credit-card"></i>
                 <p>Pembayaran</p>
               </a>

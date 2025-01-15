@@ -112,7 +112,6 @@
         <div class="container mt-5">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <a href="{{ route('listContracts') }}" class="btn btn-dark"><i class="fas fa-arrow-left"></i> Kembali</a>
                     <h3 class="ml-auto mb-0"><small>No Kontrak :</small> {{ $contract->contract_code }}</h3>
                 </div>
 
@@ -202,8 +201,8 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>1 Februari 2024 </td>
-                                <td>2024</td>
+                                <td>1 Februari 2025 </td>
+                                <td>2025</td>
                                 <td style="display: flex; justify-content: center; align-items: center; height: 100%;">
                                     <i class="fas fa-file-pdf" style="font-size: 32px; color: #dc3545;"></i>
                                 </td>
@@ -225,8 +224,8 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>1 Februari 2024 </td>
-                                <td>2024</td>
+                                <td>1 Februari 2025 </td>
+                                <td>2025</td>
                                 <td>Belum Dibayar</td>
                                 <td style="display: flex; justify-content: center; align-items: center; height: 100%; position: relative;">
                                     <!-- Input File (Disembunyikan) -->
