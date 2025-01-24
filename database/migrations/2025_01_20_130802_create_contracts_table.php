@@ -16,17 +16,14 @@ return new class extends Migration
             $table->string('contract_code')->unique();
             $table->unsignedBigInteger('partner_id');
             $table->unsignedBigInteger('field_id');
-            $table->string('badan_hukum');
-            $table->string('pic_aa');
+            $table->unsignedBigInteger('region_id');
+            $table->unsignedBigInteger('employee_id');
             $table->date('awal_janji');
             $table->date('akhir_janji'); 
             $table->integer('nilai');
             $table->string('no_pks');
-            $table->string('lokasi');
-            $table->string('kab_kota');
             $table->integer('jangka_waktu');
             $table->integer('luas');
-            $table->string('no_wa')->nullable();
             $table->string('ket');
             $table->enum('status', ['Baru', 'Progress (Surat Izin)', 'Berakhir']);
             $table->softDeletes();
@@ -35,6 +32,8 @@ return new class extends Migration
             // Menambahkan foreign key constraint pada partner_id
             $table->foreign('partner_id')->references('user_id')->on('partners')->onDelete('cascade');
             $table->foreign('field_id')->references('id')->on('fields')->onDelete('cascade');
+            $table->foreign('region_id')->references('id')->on('region')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
         });
     }
 
@@ -46,3 +45,4 @@ return new class extends Migration
         Schema::dropIfExists('contracts');
     }
 };
+

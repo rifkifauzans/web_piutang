@@ -110,16 +110,19 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $contract->contract_code }}</td>
                                         <td>{{ $contract->partner->partner_name }}</td>
-                                        <td>{{ $contract->badan_hukum }}</td>
+                                        <td>{{ $contract->partner->badan_hukum }}</td>
                                         <td>{{ $contract->jangka_waktu }}</td>
                                         <td>Rp {{ number_format($contract->nilai, 0, ',', '.') }}</td>
-                                        <td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-secondary btn-sm mb-2">
+                                                <i class="fas fa-file-invoice"></i> Invoice
+                                            </a>
                                             <a href="{{ route('listCompensations', $contract->id) }}" class="btn btn-primary btn-sm">
                                                 <i class="fas fa-file-invoice"></i> Kompensasi
                                             </a>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-{{ $contract->status == 'Baru' ? 'success' : ($contract->status == 'Progress (Surat Izin)' ? 'warning' : ($contract->status == 'Berakhir' ? 'danger' : 'info')) }} btn-sm" disabled>
+                                            <button type="button" class="btn btn-{{ $contract->status == 'Baru' ? 'success' : ($contract->status == 'Progress (Surat Izin)' ? 'warning' : ($contract->status == 'Berakhir' ? 'danger' : 'info')) }} btn-sm">
                                                 <i class="fas fa-{{ $contract->status == 'Baru' ? 'check-circle' : ($contract->status == 'Progress (Surat Izin)' ? 'hourglass-half' : ($contract->status == 'Berakhir' ? 'times-circle' : 'flag-checkered')) }}"></i>
                                                 {{ $contract->status }}
                                             </button>

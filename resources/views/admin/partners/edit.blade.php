@@ -35,6 +35,10 @@
                             @endif
                         </div>
                         <div class="form-group">
+                            <label for="badan_hukum">Badan Hukum</label>
+                            <input type="text" name="badan_hukum" id="badan_hukum" class="form-control" required value="{{ $partners->badan_hukum }}" placeholder="Masukkan Badan Hukum">
+                        </div>
+                        <div class="form-group">
                             <label for="partner_name">Nama Mitra</label>
                             <input type="text" name="partner_name" id="partner_name" class="form-control" required value="{{ $partners->partner_name }}" placeholder="Masukkan Nama Mitra">
                         </div>
@@ -49,6 +53,10 @@
                         <div class="form-group">
                             <label for="pic_name">Nama PIC</label>
                             <input type="text" name="pic_name" id="pic_name" class="form-control" required value="{{ $partners->pic_name }}" placeholder="Masukkan Nama PIC">
+                        </div>
+                        <div class="form-group">
+                            <label for="no_wa">Nomor WhatsApp</label>
+                            <input type="text" name="no_wa" id="no_wa" class="form-control" required value="{{ $partners->no_wa }}" placeholder="Masukkan Nomor WhatsApp Mitra">
                         </div>
                         <div class="form-group">
                             <label for="address">Alamat</label>

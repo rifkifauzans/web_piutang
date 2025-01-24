@@ -27,9 +27,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/admin" class="nav-link" style="color: #ffffff;">Home</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-      <a href="/" class="nav-link" style="color: #ffffff;">Landing Pages</a>
-      </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -98,9 +95,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('listInvoices') }}" class="nav-link {{ Request::routeIs('listEmployees') ? 'active' : '' }}" style="{{ Request::routeIs('listInvoices') ? 'color: #000000;' : 'color: #ffffff;' }}">
-                <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                <p>Faktur</p>
+              <a href="{{ route('listRegions') }}" class="nav-link {{ Request::routeIs('listRegions') ? 'active' : '' }}" style="{{ Request::routeIs('listRegions') ? 'color: #000000;' : 'color: #ffffff;' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+                <p>Daerah</p>
               </a>
             </li>
             <li class="nav-item">

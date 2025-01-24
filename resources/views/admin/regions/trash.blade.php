@@ -81,12 +81,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Kontrak dalam Sampah</h1>
+                        <h1 class="m-0">Daerah dalam Sampah</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('listContracts') }}">List Daftar Kontrak</a></li>
-                            <li class="breadcrumb-item active">Sampah Kontrak</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listRegions') }}">List Daftar Daerah</a></li>
+                            <li class="breadcrumb-item active">Sampah Daerah</li>
                         </ol>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
             <div class="container mt-3">
                 <div class="card">
                     <div class="card-header">
-                        <a href="{{ route('listContracts') }}" class="btn btn-dark" role="button">
+                        <a href="{{ route('listRegions') }}" class="btn btn-dark" role="button">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>
@@ -107,42 +107,31 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Kode Kontrak</th>
-                                        <th>Nama Mitra</th>
-                                        <th>Jangka Waktu</th>
-                                        <th>Nilai</th>
-                                        <th>Status</th>
+                                        <th>Lokasi</th>
+                                        <th>Kab/Kota</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($trashedContracts as $trashedContract)
+                                    @foreach ($trashedRegions as $trashedRegion)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $trashedContract->contract_code }}</td>
-                                        <td>{{ $trashedContract->partner->partner_name }}</td>
-                                        <td>{{ $trashedContract->jangka_waktu }}</td>
-                                        <td>Rp {{ number_format($trashedContract->nilai, 0, ',', '.') }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-{{ $trashedContract->status == 'Baru' ? 'success' : ($trashedContract->status == 'Progress (Surat Izin)' ? 'warning' : 'info') }} btn-sm" disabled>
-                                                <i class="fas fa-{{ $trashedContract->status == 'Baru' ? 'check-circle' : ($trashedContract->status == 'Progress (Surat Izin)' ? 'hourglass-half' : 'flag-checkered') }}"></i>
-                                                {{ $trashedContract->status }}
-                                            </button>
-                                        </td>
+                                        <td>{{ $trashedRegion->lokasi }}</td>
+                                        <td>{{ $trashedRegion->kab_kota }}</td>
                                         <td>
                                             <div class="btn-group" role="group">
-                                                <form action="{{ route('restoreContracts', ['id' => $trashedContract->id]) }}" method="POST">
+                                                <form action="{{ route('restoreRegions', ['id' => $trashedRegion->id]) }}" method="POST">
                                                     @csrf
                                                     @method('PATCH')
                                                     <button type="submit" class="btn btn-success btn-sm">
                                                         <i class="fas fa-trash-restore"></i> Pulihkan
                                                     </button>
                                                 </form>
-                                                <form id="delete-form-{{ $trashedContract->id }}" action="{{ route('forceDeleteContracts', ['id' => $trashedContract->id]) }}" method="POST" style="display: none;">
+                                                <form id="delete-form-{{ $trashedRegion->id }}" action="{{ route('forceDeleteRegions', ['id' => $trashedRegion->id]) }}" method="POST" style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
-                                                <button onclick="confirmPermanentDelete({{ $trashedContract->id }})" class="btn btn-danger btn-sm" role="button">
+                                                <button onclick="confirmPermanentDelete({{ $trashedRegion->id }})" class="btn btn-danger btn-sm" role="button">
                                                     <i class="fas fa-trash-alt"></i> Hapus Permanen
                                                 </button>
                                             </div>

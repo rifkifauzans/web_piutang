@@ -36,12 +36,14 @@ class PartnerController extends Controller
     {
         $validateData = $request->validate([
             'profile_partner' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'badan_hukum' => 'required|string',
             'partner_name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5',
             'userType' => 'required|string',
             'npwp' => 'required|string',
             'pic_name' => 'required|string',
+            'no_wa' => 'required|string',
             'address' => 'required|string'
         ]);
 
@@ -57,9 +59,11 @@ class PartnerController extends Controller
 
         Partners::create([
             'profile_partner' => $profile_partner->hashName(),
+            'badan_hukum' => $request->badan_hukum,
             'partner_name' => $request->partner_name,
             'npwp' => $request->npwp,
             'pic_name' => $request->pic_name,
+            'no_wa' => $request->no_wa,
             'address' => $request->address,
             'user_id' => $user->id
         ]);
@@ -95,10 +99,12 @@ class PartnerController extends Controller
         $partners = Partners::with('user')->findOrFail($id);
         $validateData = $request->validate([
             'profile_partner' => 'image|mimes:jpeg,jpg,png|max:2048',
+            'badan_hukum' => 'required|string',
             'partner_name' => 'required|string',
             'npwp' => 'required|string',
             'email' => 'required|email|unique:users,email,'.$partners->user_id,
             'pic_name' => 'required|string',
+            'no_wa' => 'required|string',
             'address' => 'required|string',
         ]);
         
@@ -121,9 +127,11 @@ class PartnerController extends Controller
 
         // Update data partner
         $partners->update([
+            'badan_hukum' => $request->badan_hukum,
             'partner_name' => $request->partner_name,
             'npwp' => $request->npwp,
             'pic_name' => $request->pic_name,
+            'no_wa' => $request->no_wa,
             'address' => $request->address,
             'profile_partner' => $partners->profile_partner
         ]);

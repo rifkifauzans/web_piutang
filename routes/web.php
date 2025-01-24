@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\BidangController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\KompensansiController;
 use App\Http\Controllers\ContractPartnerController;
 use App\Http\Controllers\InvoiceController;
@@ -95,6 +96,18 @@ Route::get('/fields/trash', [BidangController::class, 'trash'])->name('trashFiel
 Route::put('/fields/restore/{id}', [BidangController::class, 'restore'])->name('restoreFields');
 Route::patch('fields/restore/{id}', [BidangController::class, 'restore'])->name('fields.restore');
 Route::delete('/fields/force-delete/{id}', [BidangController::class, 'forceDelete'])->name('forceDeleteFields');
+
+// Regions Routes
+Route::get('/regions', [RegionController::class, 'index'])->name('listRegions');
+Route::get('/regions/create', [RegionController::class, 'create'])->name('createRegions');
+Route::post('/regions', [RegionController::class, 'store'])->name('storeRegions');
+Route::get('/regions/edit/{id}', [RegionController::class, 'edit'])->name('editRegions');
+Route::put('/regions/edit/{id}', [RegionController::class, 'update'])->name('updateRegions');
+Route::delete('/regions/{id}', [RegionController::class, 'destroy'])->name('deleteRegions');
+Route::get('/regions/trash', [RegionController::class, 'trash'])->name('trashRegions');
+Route::put('/regions/restore/{id}', [RegionController::class, 'restore'])->name('restoreRegions');
+Route::patch('regions/restore/{id}', [RegionController::class, 'restore'])->name('regions.restore');
+Route::delete('/regions/force-delete/{id}', [RegionController::class, 'forceDelete'])->name('forceDeleteRegions');
 
 // Partners Routes
 Route::get('/partners', [PartnerController::class, 'index'])->name('listPartners');

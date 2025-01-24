@@ -108,9 +108,11 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Foto Profil</th>
+                                        <th>Badan Hukum</th>
                                         <th>Nama Mitra</th>
                                         <th>NPWP</th>
                                         <th>Nama PIC</th>
+                                        <th>Nomor WhatsApp</th>
                                         <th>Alamat</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -126,9 +128,11 @@
                                                 No Image
                                             @endif
                                         </td>
+                                        <td>{{ $trashedPartner->badan_hukum }}</td>
                                         <td>{{ $trashedPartner->partner_name }}</td>
                                         <td>{{ $trashedPartner->npwp }}</td>
                                         <td>{{ $trashedPartner->pic_name }}</td>
+                                        <td>{{ $trashedPartner->no_wa }}</td>
                                         <td>{{ $trashedPartner->address }}</td>
                                         <td>
                                             <div class="btn-group" role="group">

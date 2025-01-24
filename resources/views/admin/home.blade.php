@@ -83,13 +83,13 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <p>Total Faktur</p>
-                <h1>1</h1>
+                <p>Total Daerah</p>
+                <h1>{{ $region }}</h1>
               </div>
               <div class="icon">
-                <i class="fas fa-file-invoice" style="color: white"></i>
+                <i class="fas fa-map-marker-alt" style="color: white"></i>
               </div>
-              <a href="" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('listRegions') }}" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">

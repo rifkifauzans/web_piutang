@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('profile_partner');
+            $table->string('badan_hukum');
             $table->string('partner_name');
             $table->string('npwp'); 
             $table->string('pic_name'); 
+            $table->string('no_wa');
             $table->string('address'); 
             $table->softDeletes();
             $table->timestamps();

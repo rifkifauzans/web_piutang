@@ -31,6 +31,13 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="badan_hukum">Badan Hukum</label>
+                                <input type="text" name="badan_hukum" id="badan_hukum" class="form-control @error('badan_hukum') is-invalid @enderror" required placeholder="Enter badan hukum">
+                                @error('badan_hukum')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label for="partner_name">Nama Mitra</label>
                                 <input type="text" name="partner_name" id="partner_name" class="form-control @error('partner_name') is-invalid @enderror" required placeholder="Enter partner name">
                                 @error('partner_name')
@@ -64,6 +71,13 @@
                                 <label for="pic_name">Nama PIC</label>
                                 <input type="text" name="pic_name" id="pic_name" class="form-control @error('pic_name') is-invalid @enderror" required placeholder="Enter pic name">
                                 @error('pic_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="no_wa">Nomor WhatsApp</label>
+                                <input type="text" class="form-control @error('no_wa') is-invalid @enderror" id="no_wa" name="no_wa" required>
+                                @error('no_wa')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

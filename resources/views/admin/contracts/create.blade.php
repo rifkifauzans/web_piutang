@@ -38,6 +38,19 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="employee_id">PIC AA (Penanggung Jawab Kerja Sama)</label>
+                                <select name="employee_id" id="employee_id" class="form-control" required>
+                                    <option value="">Pilih Karyawan</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}">{{ $employee->employees_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('employee_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label for="field_id">Bidang</label>
                                 <select name="field_id" id="field_id" class="form-control" required>
                                     <option value="">Pilih Bidang</option>
@@ -46,22 +59,6 @@
                                     @endforeach
                                 </select>
                                 @error('field_id')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="badan_hukum">Badan Hukum</label>
-                                <input type="text" name="badan_hukum" id="badan_hukum" class="form-control" required placeholder="Masukkan badan hukum">
-                                @error('badan_hukum')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="pic_aa">PIC AA</label>
-                                <input type="text" name="pic_aa" id="pic_aa" class="form-control" required placeholder="Masukkan PIC AA">
-                                @error('pic_aa')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -83,15 +80,39 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="nilai">Nilai Kontrak</label>
-                                <input type="number" name="nilai" id="nilai" class="form-control" required placeholder="Masukkan nilai kontrak">
-                                @error('nilai')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
+    <label for="nilai">Nilai Kontrak</label>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Rp</span>
+        </div>
+        <!-- Input untuk menampilkan nilai terformat -->
+        <input type="text" id="formatted_nilai" class="form-control" required placeholder="Masukkan nilai kontrak" oninput="formatRupiah(this)">
+        <!-- Input hidden untuk menyimpan nilai asli -->
+        <input type="hidden" name="nilai" id="nilai" required>
+    </div>
+    @error('nilai')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
+
+<script>
+    function formatRupiah(input) {
+        let value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value); // Format sebagai Rupiah
+
+        // Tampilkan nilai terformat di input teks
+        input.value = formattedValue; 
+
+        // Simpan angka asli di input hidden
+        document.getElementById('nilai').value = value; 
+    }
+</script>
+
+
+
 
                             <div class="form-group">
-                                <label for="no_pks">Nomor PKS (URL)</label>
+                                <label for="no_pks">Perjanjian Kerja Sama (URL)</label>
                                 <input type="url" name="no_pks" id="no_pks" class="form-control" required placeholder="Masukkan URL nomor PKS">
                                 @error('no_pks')
                                     <small class="text-danger">{{ $message }}</small>
@@ -99,17 +120,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="lokasi">Lokasi</label>
-                                <input type="text" name="lokasi" id="lokasi" class="form-control" required placeholder="Masukkan Lokasi">
-                                @error('lokasi')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="kab_kota">Kabupaten/Kota</label>
-                                <input type="text" name="kab_kota" id="kab_kota" class="form-control" required placeholder="Masukkan kabupaten/kota">
-                                @error('kab_kota')
+                                <label for="region_id">Lokasi</label>
+                                <select name="region_id" id="region_id" class="form-control" required>
+                                    <option value="">Pilih Lokasi</option>
+                                    @foreach ($region as $region)
+                                        <option value="{{ $region->id }}" data-kab="{{ $region->kab_kota }}">
+                                            {{ $region->lokasi }} - {{ $region->kab_kota }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('region_id')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -118,14 +138,6 @@
                                 <label for="luas">Luas</label>
                                 <input type="number" name="luas" id="luas" class="form-control" required placeholder="Masukkan luas">
                                 @error('luas')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label for="no_wa">Nomor WhatsApp (Opsional)</label>
-                                <input type="text" name="no_wa" id="no_wa" class="form-control" placeholder="Masukkan nomor WhatsApp">
-                                @error('no_wa')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>

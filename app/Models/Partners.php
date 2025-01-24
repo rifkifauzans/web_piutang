@@ -13,9 +13,11 @@ class Partners extends Model
     protected $table = 'partners';
     protected $fillable = [
         'profile_partner',
+        'badan_hukum',
         'partner_name',
         'npwp',
         'pic_name',
+        'no_wa',
         'address',
         'user_id' 
     ];

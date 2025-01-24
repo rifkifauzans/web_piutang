@@ -16,17 +16,14 @@ class Contracts extends Model
         'contract_code',
         'partner_id',
         'field_id',
-        'badan_hukum',
-        'pic_aa',
+        'employee_id',
+        'region_id',
         'awal_janji',
         'akhir_janji',
         'nilai',
         'no_pks',
-        'lokasi',
-        'kab_kota',
         'jangka_waktu',
         'luas',
-        'no_wa',
         'ket',
         'status',
     ];
@@ -39,6 +36,16 @@ class Contracts extends Model
     public function field()
     {
         return $this->belongsTo(Fields::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employees::class);
     }
 
     public static function generateContractNumber()

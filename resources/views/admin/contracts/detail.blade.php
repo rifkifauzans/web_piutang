@@ -41,9 +41,9 @@
                             <tr>
                                 <td><strong>No. Telepon</strong></td>
                                 <td>
-                                    @if($contract->no_wa)
-                                        <a href="https://wa.me/{{ $contract->no_wa }}" target="_blank" class="btn btn-success btn-sm" style="margin-left: 10px;">
-                                            <i class="fab fa-whatsapp"></i> {{ $contract->no_wa }}
+                                    @if($contract->partner->no_wa)
+                                        <a href="https://wa.me/{{ $contract->partner->no_wa }}" target="_blank" class="btn btn-success btn-sm" style="margin-left: 10px;">
+                                            <i class="fab fa-whatsapp"></i> {{ $contract->partner->no_wa }}
                                         </a>
                                     @else
                                         Tidak tersedia
@@ -55,8 +55,8 @@
                                 <td>{{ $contract->partner->pic_name }}</td>
                             </tr>
                             <tr>
-                                <td><strong>PIC AA</strong></td>
-                                <td>{{ $contract->pic_aa }}</td>
+                                <td><strong>PIC AA (Penanggung Jawab Kerja Sama)</strong></td>
+                                <td>{{ $contract->employee->employees_name }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Alamat</strong></td>
@@ -64,7 +64,11 @@
                             </tr>
                             <tr>
                                 <td><strong>Lokasi</strong></td>
-                                <td>{{ $contract->lokasi }}</td>
+                                <td>{{ $contract->region->lokasi }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kab/Kota</strong></td>
+                                <td>{{ $contract->region->kab_kota }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Bagian</strong></td>

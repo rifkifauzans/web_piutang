@@ -7,6 +7,7 @@ use App\Models\Fields;
 use App\Models\Employees;
 use App\Models\Partners;
 use App\Models\Contracts;
+use App\Models\Region;
 
 class AdminController extends Controller
 {
@@ -16,12 +17,14 @@ class AdminController extends Controller
         $employees = Employees::count();
         $partners = Partners::count();
         $contracts = Contracts::count();
+        $region = Region::count();
 
         $data = array(
             'fields' => $fields,
             'employees' => $employees,
             'partners' => $partners,
             'contracts' => $contracts,
+            'region' => $region,
         );
 
         return view('admin.home', $data);

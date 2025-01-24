@@ -26,11 +26,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="tahun_awal">Tahun Awal</label>
-                                <input type="number" name="tahun_awal" class="form-control" required>
+                                <input type="number" name="tahun_awal" class="form-control" value="{{ \Carbon\Carbon::parse($contract->awal_janji)->year ?? '' }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="tahun_akhir">Tahun Akhir</label>
-                                <input type="number" name="tahun_akhir" class="form-control" required>
+                                <input type="number" name="tahun_akhir" class="form-control" value="{{ \Carbon\Carbon::parse($contract->akhir_janji)->year ?? '' }}" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="nilai_kompensasi">Nilai Kompensasi (Tahun Pertama)</label>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contracts;
 use App\Models\Compensation;
 use App\Models\Compensharing;
+use Carbon\Carbon;
 
 class KompensansiController extends Controller
 {
@@ -72,16 +73,14 @@ class KompensansiController extends Controller
         $contract = Contracts::findOrFail($contractId);
 
         $request->validate([
-            'tahun_awal' => 'required|integer',
-            'tahun_akhir' => 'required|integer|gte:tahun_awal',
             'jatuh_tempo' => 'required|date',
             'nilai_kompensasi' => 'required|numeric',
             'pbb' => 'required|numeric',
             'lainnya' => 'nullable|numeric',
         ]);
 
-        $tahunAwal = $request->input('tahun_awal');
-        $tahunAkhir = $request->input('tahun_akhir');
+        $tahunAwal = Carbon::parse($contract->awal_janji)->year;
+        $tahunAkhir = Carbon::parse($contract->akhir_janji)->year;
         $jatuhTempo = $request->input('jatuh_tempo');
         $nilaiKompensasi = $request->input('nilai_kompensasi');
         $pbb = $request->input('pbb');

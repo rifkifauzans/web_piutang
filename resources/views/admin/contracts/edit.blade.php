@@ -41,9 +41,9 @@
                             @method('PUT')
                             
                             <div class="form-group">
-                                <label for="partner_id">Partner</label>
+                                <label for="partner_id">Mitra</label>
                                 <select class="form-control" id="partner_id" name="partner_id" required>
-                                    <option value="">Pilih Partner</option>
+                                    <option value="">Pilih Mitra</option>
                                     @foreach ($partners as $partner)
                                         <option value="{{ $partner->user_id }}" {{ $contracts->partner_id == $partner->user_id ? 'selected' : '' }}>{{ $partner->partner_name }}</option>
                                     @endforeach
@@ -51,9 +51,9 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="field_id">Field</label>
+                                <label for="field_id">Bidang</label>
                                 <select class="form-control" id="field_id" name="field_id" required>
-                                    <option value="">Pilih Field</option>
+                                    <option value="">Pilih Bidang</option>
                                     @foreach ($fields as $field)
                                         <option value="{{ $field->id }}" {{ $contracts->field_id == $field->id ? 'selected' : '' }}>{{ $field->field_name }}</option>
                                     @endforeach
@@ -61,13 +61,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="badan_hukum">Badan Hukum</label>
-                                <input type="text" class="form-control" id="badan_hukum" name="badan_hukum" value="{{ $contracts->badan_hukum }}" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="pic_aa">PIC AA</label>
-                                <input type="text" class="form-control" id="pic_aa" name="pic_aa" value="{{ $contracts->pic_aa }}" required>
+                                <label for="employee_id">PIC AA (Penanggung Jawab Kerja Sama)</label>
+                                <select class="form-control" id="employee_id" name="employee_id" required>
+                                    <option value="">Pilih Karyawan</option>
+                                    @foreach ($employees as $employee)
+                                        <option value="{{ $employee->id }}" {{ $contracts->employee_id == $employee->id ? 'selected' : '' }}>{{ $employee->employees_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
                             <div class="form-group">
@@ -81,33 +81,66 @@
                             </div>
                             
                             <div class="form-group">
-                                <label for="nilai">Nilai</label>
-                                <input type="number" class="form-control" id="nilai" name="nilai" value="{{ $contracts->nilai }}" required min="0">
-                            </div>
-                            
+    <label for="nilai">Nilai Kontrak</label>
+    <div class="input-group">
+        <!-- Input untuk menampilkan nilai terformat -->
+        <input type="text" class="form-control" id="formatted_nilai" name="formatted_nilai" value="{{ number_format($contracts->nilai, 0, ',', '.') }}" required placeholder="Masukkan nilai kontrak" oninput="formatRupiah(this)">
+        <div class="input-group-append">
+            <span class="input-group-text">Rp</span>
+        </div>
+        <!-- Input hidden untuk menyimpan nilai asli -->
+        <input type="hidden" name="nilai" id="nilai" value="{{ $contracts->nilai }}" required>
+    </div>
+    @error('nilai')
+        <small class="text-danger">{{ $message }}</small>
+    @enderror
+</div>
+
+<script>
+    function formatRupiah(input) {
+        let value = input.value.replace(/[^,\d]/g, '').toString(); // Hanya angka dan koma
+        let split = value.split(',');
+        let remainder = split[0].length % 3;
+        let rupiah = split[0].substr(0, remainder);
+        let thousands = split[0].substr(remainder).match(/\d{3}/gi);
+        
+        if (thousands) {
+            separator = remainder ? '.' : '';
+            rupiah += separator + thousands.join('.');
+        }
+        
+        input.value = rupiah + (split[1] ? ',' + split[1] : '');
+        
+        // Simpan angka asli di input hidden
+        document.getElementById('nilai').value = value.replace(',', ''); // Hilangkan koma untuk nilai asli
+    }
+</script>
+
                             <div class="form-group">
-                                <label for="no_pks">No PKS</label>
+                                <label for="no_pks">Perjanjian Kerja Sama (URL)</label>
                                 <input type="url" class="form-control" id="no_pks" name="no_pks" value="{{ $contracts->no_pks }}" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="lokasi">Lokasi</label>
-                                <input type="text" class="form-control" id="lokasi" name="lokasi" value="{{ $contracts->lokasi }}" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="kab_kota">Kabupaten/Kota</label>
-                                <input type="text" class="form-control" id="kab_kota" name="kab_kota" value="{{ $contracts->kab_kota }}" required>
+                                <label for="region_id">Lokasi</label>
+                                <select name="region_id" id="region_id" class="form-control" required>
+                                    <option value="">Pilih Lokasi</option>
+                                    @foreach ($region as $region)
+                                        <option value="{{ $region->id }}" 
+                                            {{ old('region_id', $contracts->region_id) == $region->id ? 'selected' : '' }} 
+                                            data-kab="{{ $region->kab_kota }}">
+                                            {{ $region->lokasi }} - {{ $region->kab_kota }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('region_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             
                             <div class="form-group">
                                 <label for="luas">Luas (m²)</label>
                                 <input type="number" class="form-control" id="luas" name="luas" value="{{ $contracts->luas }}" required min="1">
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="no_wa">Nomor WA (Opsional)</label>
-                                <input type="text" class="form-control" id="no_wa" name="no_wa" value="{{ $contracts->no_wa }}">
                             </div>
 
                             <div class="form-group">

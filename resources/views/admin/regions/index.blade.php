@@ -55,7 +55,7 @@
         function confirmDelete(id) {
             Swal.fire({
                 title: "Confirm Delete",
-                text: "Are you sure you want to delete this partner?",
+                text: "Are you sure you want to delete this regions?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonText: "Yes, delete it!",
@@ -69,14 +69,13 @@
     </script>
 @endsection
 
-@section('content')
-    <br><br>
+@section('content') <br> <br>
     <div class="content-wrapper">
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">LIST DAFTAR MITRA</h1>
+                        <h1 class="m-0">Daftar Daerah</h1>
                     </div>
                 </div>
             </div>
@@ -85,9 +84,9 @@
             <div class="container">
                 <div class="card">
                     <div class="card-header text-left">
-                        <a href="{{ route('createPartners') }}" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Tambah Mitra</a>
+                        <a href="{{ route('createRegions') }}" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Tambah Daerah</a>
                         <a class="btn btn-dark" role="button" href="/admin"><i class="fas fa-arrow-left"></i> Kembali</a>
-                        <a href="{{ route('trashPartners') }}" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Sampah</a>
+                        <a href="{{ route('trashRegions') }}" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -95,39 +94,21 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Foto Profil</th>
-                                        <th>Badan Hukum</th>
-                                        <th>Nama Mitra</th>
-                                        <th>Email</th>
-                                        <th>NPWP</th>
-                                        <th>Nama PIC</th>
-                                        <th>Nomor WhatsApp</th>
-                                        <th>Alamat</th>
+                                        <th>Lokasi</th>
+                                        <th>Kab/Kota</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($partners as $partner)
+                                    @foreach ($region as $region)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>
-                                            @if($partner->profile_partner)
-                                                <img src="{{ Storage::url('partners/' . $partner->profile_partner) }}" alt="Profile Partner">
-                                            @else
-                                                No Picture
-                                            @endif
-                                        </td>
-                                        <td>{{ $partner->badan_hukum }}</td>
-                                        <td>{{ $partner->partner_name }}</td>
-                                        <td>{{ $partner->user ? $partner->user->email : 'No Email' }}</td>
-                                        <td>{{ $partner->npwp }}</td>
-                                        <td>{{ $partner->pic_name }}</td>
-                                        <td>{{ $partner->no_wa }}</td>
-                                        <td>{{ $partner->address }}</td>
+                                        <td>{{ $region->lokasi }}</td>
+                                        <td>{{ $region->kab_kota }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('editPartners', $partner->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                            <a href="javascript:void(0);" onclick="confirmDelete({{ $partner->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                            <form id="delete-form-{{ $partner->id }}" action="{{ route('deletePartners', $partner->id) }}" method="POST" style="display: none;">
+                                            <a href="{{ route('editRegions', $region->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            <a href="javascript:void(0);" onclick="confirmDelete({{ $region->id }})" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                            <form id="delete-form-{{ $region->id }}" action="{{ route('deleteRegions', $region->id) }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
