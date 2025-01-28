@@ -85,9 +85,9 @@
             <div class="container">
                 <div class="card">
                     <div class="card-header text-left">
-                    <a href="" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Faktur</a>
-                        <a class="btn btn-dark" role="button" href="/admin"><i class="fas fa-arrow-left"></i> Kembali</a>
-                        <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
+                    <a href="{{ route('createInvoices', ['contractId' => $contract->id]) }}" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Faktur</a>
+                        <a class="btn btn-dark" role="button" href="{{ route('listContracts') }}"><i class="fas fa-arrow-left"></i> Kembali</a>
+                        <a href="{{ route('trashInvoices', ['contractId' => $contract->id]) }}" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -95,26 +95,43 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Tahun</th>
                                         <th>Tanggal Terbit</th>
                                         <th>Jatuh Tempo</th>
                                         <th>Nilai Tagihan</th>
+                                        <th>Sisa Tagihan</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
+                                    @foreach ($invoice as $invoice)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                            <a href="javascript:void(0);" onclick="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $invoice->compensation ? $invoice->compensation->tahun : 'Tahun tidak ditemukan' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($invoice->tgl_terbit)->format('d-m-Y') }}</td>
+                                        <td>{{ $invoice->compensation ? \Carbon\Carbon::parse($invoice->compensation->jatuh_tempo)->format('d-m-Y') : 'Jatuh Tempo tidak ditemukan' }}</td>
+                                        <td>{{ $invoice->total_tagihan }}</td>
+                                        <td>{{ $invoice->sisa_tagihan }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-{{ $invoice->status == 'draft' ? 'secondary' : ($invoice->status == 'kirim' ? 'success' : 'primary') }} btn-sm">
+                                                <i class="fas fa-{{ $invoice->status == 'draft' ? 'file-alt' : ($invoice->status == 'kirim' ? 'truck' : 'paper-plane') }}"></i>
+                                                {{ $invoice->status }}
+                                            </button>
                                         </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('editInvoice', ['contractId' => $contract->id, 'id' => $invoice->id ]) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                            <a href="javascript:void(0);" onclick="confirmDelete({{ $contract->id }}, {{ $invoice->id }})" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <form id="delete-form-{{ $invoice->id }}" action="{{ route('destroyInvoice', ['contractId' => $contract->id, 'id' => $invoice->id]) }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </td>
+                                        
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

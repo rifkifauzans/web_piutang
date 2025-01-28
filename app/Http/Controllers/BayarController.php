@@ -3,15 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contracts;
+use App\Models\Invoice;
+use App\Models\Payment;
+use Carbon\Carbon;
 
 class BayarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($contractId)
     {
-        return view('admin.payments.index');
+        $contract = Contracts::findOrFail($contractId);
+        $payment = Payment::where('contract_id', $contractId)->get();
+        $invoice = Invoice::where('contract_id', $contractId)->get();
+ 
+        return view('admin.payments.index', [
+            'contract' => $contract,
+            'payment' => $payment,
+            'invoice' => $invoice
+        ]);
     }
 
     /**

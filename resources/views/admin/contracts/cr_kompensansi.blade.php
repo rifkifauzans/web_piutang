@@ -41,7 +41,7 @@
                                 <input type="number" name="pbb" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="lainnya">Biaya Lainnya (Opsional)</label>
+                                <label for="lainnya">Biaya Tambahan (Opsional)</label>
                                 <input type="number" name="lainnya" class="form-control">
                             </div>
                             <div class="form-group">

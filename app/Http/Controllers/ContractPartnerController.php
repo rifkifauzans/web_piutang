@@ -7,6 +7,8 @@ use App\Models\Contracts;
 use App\Models\Partners;
 use App\Models\User;
 use App\Models\Fields;
+use App\Models\Region;
+use App\Models\Employees;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -50,7 +52,7 @@ class ContractPartnerController extends Controller
     public function show(string $id)
     {
         // Fetch the contract along with related partner and field data
-        $contract = Contracts::with('partner', 'field')->findOrFail($id);
+        $contract = Contracts::with('partner', 'field', 'region', 'employee', 'invoices')->findOrFail($id);
         
         // Return the view with the contract data
         return view('user.detailContract', compact('contract'));

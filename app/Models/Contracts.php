@@ -48,6 +48,11 @@ class Contracts extends Model
         return $this->belongsTo(Employees::class);
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'contract_id');  // Pastikan menggunakan 'contract_id'
+    }
+
     public static function generateContractNumber()
     {
         return 'CT-' . mt_rand(1000000000, 9999999999);

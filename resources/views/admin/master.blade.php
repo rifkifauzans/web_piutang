@@ -83,27 +83,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('listFields') }}" class="nav-link {{ Request::routeIs('listFields') ? 'active' : '' }}" style="{{ Request::routeIs('listFields') ? 'color: #000000;' : 'color: #ffffff;' }}">
-                <i class="nav-icon fas fa-building"></i>
-                <p>Bidang</p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="{{ route('listContracts') }}" class="nav-link {{ Request::routeIs('listContracts') ? 'active' : '' }}" style="{{ Request::routeIs('listContracts') ? 'color: #000000;' : 'color: #ffffff;' }}">
                 <i class="nav-icon fas fa-file-contract"></i>
                 <p>Kontrak</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('listRegions') }}" class="nav-link {{ Request::routeIs('listRegions') ? 'active' : '' }}" style="{{ Request::routeIs('listRegions') ? 'color: #000000;' : 'color: #ffffff;' }}">
-                <i class="nav-icon fas fa-map-marker-alt"></i>
-                <p>Daerah</p>
+              <a href="{{ route('listFields') }}" class="nav-link {{ Request::routeIs('listFields') ? 'active' : '' }}" style="{{ Request::routeIs('listFields') ? 'color: #000000;' : 'color: #ffffff;' }}">
+                <i class="nav-icon fas fa-building"></i>
+                <p>Bidang</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{ route('listPayments') }}" class="nav-link {{ Request::routeIs('listPayments') ? 'active' : '' }}" style="{{ Request::routeIs('listPayments') ? 'color: #000000;' : 'color: #ffffff;' }}">
-                <i class="nav-icon fas fa-credit-card"></i>
-                <p>Pembayaran</p>
+              <a href="{{ route('listRegions') }}" class="nav-link {{ Request::routeIs('listRegions') ? 'active' : '' }}" style="{{ Request::routeIs('listRegions') ? 'color: #000000;' : 'color: #ffffff;' }}">
+                <i class="nav-icon fas fa-map-marker-alt"></i>
+                <p>Daerah</p>
               </a>
             </li>
           </ul>

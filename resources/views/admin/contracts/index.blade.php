@@ -97,9 +97,8 @@
                                         <th>Kode Kontrak</th>
                                         <th>Nama Mitra</th>
                                         <th>Badan Hukum</th>
-                                        <th>Jangka Waktu</th>
                                         <th>Nilai</th>
-                                        <th>Kompensansi</th>
+                                        <th>Transaksi</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -111,14 +110,16 @@
                                         <td>{{ $contract->contract_code }}</td>
                                         <td>{{ $contract->partner->partner_name }}</td>
                                         <td>{{ $contract->partner->badan_hukum }}</td>
-                                        <td>{{ $contract->jangka_waktu }}</td>
                                         <td>Rp {{ number_format($contract->nilai, 0, ',', '.') }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-secondary btn-sm mb-2">
-                                                <i class="fas fa-file-invoice"></i> Invoice
+                                            <a href="{{ route('listInvoices', $contract->id) }}" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-file-invoice"></i> Invoice/Faktur
                                             </a>
                                             <a href="{{ route('listCompensations', $contract->id) }}" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-file-invoice"></i> Kompensasi
+                                                <i class="fas fa-hand-holding-usd"></i> Kompensasi
+                                            </a>
+                                            <a href="{{ route('listPayments', $contract->id) }}" class="btn btn-success btn-sm">
+                                                <i class="fas fas fa-credit-card"></i> Pembayaran
                                             </a>
                                         </td>
                                         <td>

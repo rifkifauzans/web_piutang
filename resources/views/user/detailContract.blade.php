@@ -130,9 +130,9 @@
                             <tr>
                                 <td><strong>No. Telepon</strong></td>
                                 <td>
-                                    @if($contract->no_wa)
-                                        <a href="https://wa.me/{{ $contract->no_wa }}" target="_blank" class="btn btn-success btn-sm" style="margin-left: 10px;">
-                                            <i class="fab fa-whatsapp"></i> {{ $contract->no_wa }}
+                                    @if($contract->partner->no_wa)
+                                        <a href="https://wa.me/{{ $contract->partner->no_wa }}" target="_blank" class="btn btn-success btn-sm" style="margin-left: 10px;">
+                                            <i class="fab fa-whatsapp"></i> {{ $contract->partner->no_wa }}
                                         </a>
                                     @else
                                         Tidak tersedia
@@ -140,12 +140,12 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>PIC Opset</strong></td>
+                                <td><strong>PIC (Penanggung Jawab Opset)</strong></td>
                                 <td>{{ $contract->partner->pic_name }}</td>
                             </tr>
                             <tr>
-                                <td><strong>PIC AA</strong></td>
-                                <td>{{ $contract->pic_aa }}</td>
+                                <td><strong>PIC AA (Penanggung Jawab Kerja Sama)</strong></td>
+                                <td>{{ $contract->employee->employees_name }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Alamat</strong></td>
@@ -153,7 +153,11 @@
                             </tr>
                             <tr>
                                 <td><strong>Lokasi</strong></td>
-                                <td>{{ $contract->lokasi }}</td>
+                                <td>{{ $contract->region->lokasi }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kab/Kota</strong></td>
+                                <td>{{ $contract->region->kab_kota }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Bagian</strong></td>
@@ -193,52 +197,90 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Jatuh Tempo</th>
                                 <th>Tahun</th>
-                                <th>Aksi</th>
+                                <th>Jatuh Tempo</th>
+                                <th>Nilai Tagihan</th>
+                                <th>Sisa Tagihan</th>
+                                <th>Jumlah Denda</th>
+                                <th>Surat Peringatan (SP)</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($contract->invoices->where('status', 'kirim') as $invoice)
                             <tr>
-                                <td>1</td>
-                                <td>1 Februari 2025 </td>
-                                <td>2025</td>
-                                <td style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                                    <i class="fas fa-file-pdf" style="font-size: 32px; color: #dc3545;"></i>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $invoice->compensation ? $invoice->compensation->tahun : 'Tahun tidak ditemukan' }}</td>
+                                <td>{{ $invoice->compensation ? \Carbon\Carbon::parse($invoice->compensation->jatuh_tempo)->format('d-m-Y') : 'Jatuh Tempo tidak ditemukan' }}</td>
+                                <td>{{ $invoice->total_tagihan }}</td>
+                                <td>{{ $invoice->sisa_tagihan }}</td>
+                                <td>{{ $invoice->jml_denda }}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-{{ 
+                                        $invoice->status_sp == 'none' ? 'success' : 
+                                        ($invoice->status_sp == 'SP1' ? 'warning' : 
+                                        ($invoice->status_sp == 'SP2' ? 'orange' : 
+                                        ($invoice->status_sp == 'SP3' ? 'danger' : 'secondary')))
+                                    }} btn-sm">
+                                        <i class="fas fa-{{ 
+                                            $invoice->status_sp == 'none' ? 'file' : 
+                                            ($invoice->status_sp == 'SP1' ? 'exclamation-triangle' : 
+                                            ($invoice->status_sp == 'SP2' ? 'clock' : 
+                                            ($invoice->status_sp == 'SP3' ? 'times-circle' : 'file')))
+                                        }}"></i>
+                                        {{ $invoice->status_sp }}
+                                    </button>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <br>
                     <h4>Info Pembayaran</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Jatuh Tempo</th>
-                                <th>Tahun</th>
-                                <th>Status</th>
-                                <th>Aksi Upload</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1 Februari 2025 </td>
-                                <td>2025</td>
-                                <td>Belum Dibayar</td>
-                                <td style="display: flex; justify-content: center; align-items: center; height: 100%; position: relative;">
-                                    <!-- Input File (Disembunyikan) -->
-                                    <input type="file" id="uploadFile" style="display: none;" onchange="handleFileUpload(this)">
-
-                                    <!-- Ikon PDF -->
-                                    <label for="uploadFile" style="cursor: pointer;">
-                                        <i class="fas fa-cloud-upload-alt" style="font-size: 32px; color: #28a745;"></i>
-                                    </label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="card mt-2"> 
+                        <div class="card-header text-left">
+                            <a href="" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Tambah Pembayaran</a>
+                            <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered" id="data-payment-table">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Jatuh Tempo</th>
+                                            <th>Tahun</th>
+                                            <th>Status</th>
+                                            <th>Aksi Upload</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="text-center">
+                                                <a href="" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+                                                <a href="" class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                                <form id="" action="" method="POST" style="display: none;">
+                                                
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3" style="text-align: center;">Total Pembayaran</th>
+                                            <th colspan="2"></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

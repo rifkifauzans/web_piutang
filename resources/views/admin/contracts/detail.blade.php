@@ -51,7 +51,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>PIC Opset</strong></td>
+                                <td><strong>PIC (Penanggung Jawab Opset)</strong></td>
                                 <td>{{ $contract->partner->pic_name }}</td>
                             </tr>
                             <tr>

@@ -120,7 +120,7 @@ Route::get('/partners/trash', [PartnerController::class, 'trash'])->name('trashP
 Route::patch('/partners/{id}/restore', [PartnerController::class, 'restore'])->name('restorePartners');
 Route::delete('/partners/{id}/forceDelete', [PartnerController::class, 'forceDelete'])->name('forceDeletePartners');
 
-// Contracts dan Compensations Routes
+// Contracts Routes
 Route::get('/kontraks', [KontrakController::class, 'index'])->name('listContracts');
 Route::get('/kontraks/create', [KontrakController::class, 'create'])->name('createContracts');
 Route::post('/kontraks', [KontrakController::class, 'store'])->name('storeContracts');
@@ -131,7 +131,7 @@ Route::delete('/kontraks/{id}', [KontrakController::class, 'destroy'])->name('de
 Route::get('/kontraks/trash', [KontrakController::class, 'trash'])->name('trashContracts');
 Route::patch('/kontraks/{id}/restore', [KontrakController::class, 'restore'])->name('restoreContracts');
 Route::delete('/kontraks/{id}/forceDelete', [KontrakController::class, 'forceDelete'])->name('forceDeleteContracts');
-
+// Compensations Routes
 Route::get('/kontraks/{contractId}/kompensansi', [KompensansiController::class, 'index'])->name('listCompensations');
 Route::get('/kontraks/{contractId}/kompensansi/create', [KompensansiController::class, 'create'])->name('createCompensations');
 Route::get('/kontraks/{contractId}/kompensansi/createCompen', [KompensansiController::class, 'createCompenshare'])->name('createCompenshare');
@@ -140,12 +140,20 @@ Route::post('/kontraks/{contractId}/kompensasi/storeCompen', [KompensansiControl
 Route::get('/kontraks/{contractId}/kompensasi/edit/{id}', [KompensansiController::class, 'editCompenshare'])->name('editCompenshare');
 Route::put('/kontraks/{contractId}/kompensasi/{id}', [KompensansiController::class, 'updateCompenshare'])->name('updateCompenshare');
 Route::delete('/kontraks/{contractId}/kompensasi/{id}', [KompensansiController::class, 'destroyCompenshare'])->name('destroyCompenshare');
-Route::get('/kontraks/{contractId}/kompensasi/trash', [KompensansiController::class, 'trashCompenshare'])->name('trashCompenshare');
+Route::get('/kontraks/{contractId}/kompensasi/trashCompenshare', [KompensansiController::class, 'trashCompenshare'])->name('trashCompenshare');
 Route::patch('/kontraks/{contractId}/kompensasi/{id}/restore', [KompensansiController::class, 'restoreCompenshare'])->name('restoreCompenshare');
 Route::delete('/kontraks/{contractId}/kompensasi/{id}/force', [KompensansiController::class, 'forceDeleteCompenshare'])->name('forceDeleteCompenshare');
 
 // Invoices Routes
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('listInvoices');
+Route::get('/kontraks/{contractId}/invoice', [InvoiceController::class, 'index'])->name('listInvoices');
+Route::get('/kontraks/{contractId}/invoice/create', [InvoiceController::class, 'create'])->name('createInvoices');
+Route::post('/kontraks/{contractId}/invoice/storeInvoice', [InvoiceController::class, 'store'])->name('storeInvoice');
+Route::get('/kontraks/{contractId}/invoice/{id}/edit', [InvoiceController::class, 'edit'])->name('editInvoice');
+Route::put('/kontraks/{contractId}/invoice/{id}', [InvoiceController::class, 'update'])->name('updateInvoice');
+Route::delete('/kontraks/{contractId}/invoice/{id}', [InvoiceController::class, 'destroy'])->name('destroyInvoice');
+Route::get('/kontraks/{contractId}/kompensasi/trash', [InvoiceController::class, 'trash'])->name('trashInvoices');
+Route::patch('/kontraks/{contractId}/kompensasi/{id}/restore', [InvoiceController::class, 'restore'])->name('restoreInvoices');
+Route::delete('/kontraks/{contractId}/kompensasi/{id}/force', [InvoiceController::class, 'forceDelete'])->name('forceDeleteInvoices');
 
 // Payments Routes
-Route::get('/payments', [BayarController::class, 'index'])->name('listPayments');
+Route::get('/kontraks/{contractId}/payment', [BayarController::class, 'index'])->name('listPayments');

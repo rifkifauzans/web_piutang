@@ -85,8 +85,7 @@
             <div class="container">
                 <div class="card">
                     <div class="card-header text-left">
-                        <a href="" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Pembayaran</a>
-                        <a class="btn btn-dark" role="button" href="/admin"><i class="fas fa-arrow-left"></i> Kembali</a>
+                        <a class="btn btn-dark" role="button" href="{{ route('listContracts') }}"><i class="fas fa-arrow-left"></i> Kembali</a>
                         <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
                     </div>
                     <div class="card-body">

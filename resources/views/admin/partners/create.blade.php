@@ -68,7 +68,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="pic_name">Nama PIC</label>
+                                <label for="pic_name">Nama PIC (Penanggung Jawab Opset)</label>
                                 <input type="text" name="pic_name" id="pic_name" class="form-control @error('pic_name') is-invalid @enderror" required placeholder="Enter pic name">
                                 @error('pic_name')
                                     <small class="text-danger">{{ $message }}</small>

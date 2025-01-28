@@ -20,13 +20,13 @@ class KompensansiController extends Controller
         $kompensasiSharing = Compensharing::where('contract_id', $contractId)->get();
 
         // Menghitung total untuk setiap kolom
-    $totalNilaiKompensasi = $kompensasi->sum('nilai_kompensansi');
-    $totalPPN = $kompensasi->sum('ppn');
-    $totalNilaiPlusPPN = $kompensasi->sum('nilai_plus_ppn');
-    $totalPBB = $kompensasi->sum('pbb');
-    $totalLainnya = $kompensasi->sum('lainnya');
-    $totalKompensasi = $kompensasi->sum('total');
-    $totalKompensasiSharing = $kompensasiSharing->sum('kompensasi_sharing');
+        $totalNilaiKompensasi = $kompensasi->sum('nilai_kompensansi');
+        $totalPPN = $kompensasi->sum('ppn');
+        $totalNilaiPlusPPN = $kompensasi->sum('nilai_plus_ppn');
+        $totalPBB = $kompensasi->sum('pbb');
+        $totalLainnya = $kompensasi->sum('lainnya');
+        $totalKompensasi = $kompensasi->sum('total');
+        $totalKompensasiSharing = $kompensasiSharing->sum('kompensasi_sharing');
 
         return view('admin.contracts.kompensansi', [
             'contract' => $contract,
@@ -245,7 +245,7 @@ class KompensansiController extends Controller
                                 ->firstOrFail();
         $compenshare->restore();
 
-        return redirect()->route('trashCompenshare', ['contractId' => $contractId])
+        return redirect()->route('listCompensations', ['contractId' => $contractId])
                      ->with('success', 'Kompensasi Sharing berhasil dipulihkan');
     }
 
@@ -257,7 +257,7 @@ class KompensansiController extends Controller
         //
     }
 
-    public function forceDeleteCompenshare(string $id)
+    public function forceDeleteCompenshare(string $contractId, $id)
     {
         $compenshare = Compensharing::onlyTrashed()
                                 ->where('contract_id', $contractId)
@@ -265,7 +265,7 @@ class KompensansiController extends Controller
                                 ->firstOrFail();
         $compenshare->forceDelete();
 
-        return redirect()->route('trashCompenshare', ['contractId' => $contractId])
+        return redirect()->route('listCompensations', ['contractId' => $contractId])
                      ->with('success', 'Kompensasi Sharing berhasil dihapus permanen');
     }
 }
