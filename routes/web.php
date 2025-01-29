@@ -156,4 +156,8 @@ Route::patch('/kontraks/{contractId}/kompensasi/{id}/restore', [InvoiceControlle
 Route::delete('/kontraks/{contractId}/kompensasi/{id}/force', [InvoiceController::class, 'forceDelete'])->name('forceDeleteInvoices');
 
 // Payments Routes
-Route::get('/kontraks/{contractId}/payment', [BayarController::class, 'index'])->name('listPayments');
+Route::get('/kontraks/{contractId}/payments', [BayarController::class, 'index'])->name('listPayments');
+Route::get('/kontraks/{contractId}/payments/{id}/editPayments', [BayarController::class, 'edit'])->name('editPayments');
+Route::put('/kontraks/{contractId}/payments/{id}/update', [BayarController::class, 'update'])->name('updatePayments');
+Route::get('/kontraks/{contractId}/payment/create', [ContractPartnerController::class, 'create'])->name('createPayment');
+Route::post('/kontraks/{contractId}/payment/storePayment', [ContractPartnerController::class, 'store'])->name('storePayment');

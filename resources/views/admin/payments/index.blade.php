@@ -86,7 +86,6 @@
                 <div class="card">
                     <div class="card-header text-left">
                         <a class="btn btn-dark" role="button" href="{{ route('listContracts') }}"><i class="fas fa-arrow-left"></i> Kembali</a>
-                        <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -94,26 +93,36 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
+                                        <th>Tahun</th>
                                         <th>Bukti Bayar</th>
                                         <th>Tanggal Bayar</th>
-                                        <th>Jumlah Tunai</th>
+                                        <th>Jumlah Tagihan</th>
+                                        <th>Keterangan</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
+                                    @foreach ($payment as $payment)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $payment->invoice->compensation->tahun }}</td>
+                                        <td>
+                                            @if($payment->bukti_bayar)
+                                                <img src="{{ Storage::url('payments/' . $payment->bukti_bayar) }}" alt="Bukti Bayar">
+                                            @else
+                                                No Picture
+                                            @endif
+                                        </td>
+                                        <td>{{ $payment->tgl_bayar }}</td>
+                                        <td>Rp {{ number_format($payment->invoice->sisa_tagihan, 0, ',', '.') }}</td>
+                                        <td>{{ $payment->ket }}</td>
+                                        <td>{{ $payment->status }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                            <a href="javascript:void(0);" onclick="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('editPayments', ['contractId' => $contract->id, 'id' => $payment->id ]) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

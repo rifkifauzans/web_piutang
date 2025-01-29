@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Fields;
 use App\Models\Region;
 use App\Models\Employees;
+use App\Models\Payment;
+use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -33,17 +35,58 @@ class ContractPartnerController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($contractId)
     {
-        //
+        $contract = Contracts::findOrFail($contractId);
+        $payment = Payment::where('contract_id', $contractId)->get();
+        $invoice = Invoice::with('compensation') // Load kompensasi terkait
+        ->where('contract_id', $contractId)
+        ->get();
+
+        return view('user.createBayar', [
+            'contract' => $contract,
+            'invoice' => $invoice,
+            'payment' => $payment
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $contractId)
     {
-        //
+        $request->validate([
+            'tahun' => 'required',
+            'bukti_bayar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'tgl_bayar' => 'required|date',
+            'ket' => 'nullable|string',
+        ]);
+    
+        // Simpan gambar
+        $bukti_bayar = $request->file('bukti_bayar');
+        $bukti_bayarPath = $bukti_bayar->storeAs('public/payments', $bukti_bayar->hashName());
+    
+        // Ambil invoice berdasarkan tahun yang dipilih
+        $invoice = Invoice::whereHas('compensation', function ($query) use ($request) {
+            $query->where('tahun', $request->tahun);
+        })->where('contract_id', $contractId)->first();
+    
+        if (!$invoice) {
+            return back()->with('error', 'Invoice tidak ditemukan!');
+        }
+    
+        // Simpan pembayaran
+        Payment::create([
+            'contract_id' => $contractId,
+            'invoice_id' => $invoice->id,
+            'bukti_bayar' => $bukti_bayar->hashName(),
+            'tgl_bayar' => $request->tgl_bayar,
+            'ket' => $request->ket,
+            'status' => 'Belum Lunas',
+        ]);
+    
+        return redirect()->route('detail', $contractId)
+            ->with('success', 'Pembayaran berhasil disimpan!');
     }
 
     /**
@@ -54,22 +97,23 @@ class ContractPartnerController extends Controller
         // Fetch the contract along with related partner and field data
         $contract = Contracts::with('partner', 'field', 'region', 'employee', 'invoices')->findOrFail($id);
         
+        // Fetch the payment data
+        $payment = Payment::where('contract_id', $id)->get();
         // Return the view with the contract data
-        return view('user.detailContract', compact('contract'));
+        return view('user.detailContract', compact('contract', 'payment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $contractId, $id)
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, $contractId)
     {
         //
     }

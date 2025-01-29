@@ -76,7 +76,7 @@
               <div class="icon">
                 <i class="fas fa-file-contract" style="color: white"></i>
               </div>
-              <a href="" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('listContracts') }}" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -97,12 +97,12 @@
             <div class="small-box bg-info">
               <div class="inner">
                 <p>Total Pembayaran</p>
-                <h1>1</h1>
+                <h1>{{ $payment }}</h1>
               </div>
               <div class="icon">
                 <i class="fas fa-credit-card" style="color: white"></i>
               </div>
-              <a href="" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ route('listContracts') }}" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         </div>

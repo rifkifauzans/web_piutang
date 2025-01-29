@@ -211,8 +211,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $invoice->compensation ? $invoice->compensation->tahun : 'Tahun tidak ditemukan' }}</td>
                                 <td>{{ $invoice->compensation ? \Carbon\Carbon::parse($invoice->compensation->jatuh_tempo)->format('d-m-Y') : 'Jatuh Tempo tidak ditemukan' }}</td>
-                                <td>{{ $invoice->total_tagihan }}</td>
-                                <td>{{ $invoice->sisa_tagihan }}</td>
+                                <td>Rp {{ number_format($invoice->total_tagihan, 0, ',', '.') }}</td>
+                                <td>Rp {{ number_format($invoice->sisa_tagihan, 0, ',', '.') }}</td>
                                 <td>{{ $invoice->jml_denda }}</td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-{{ 
@@ -238,8 +238,7 @@
                     <h4>Info Pembayaran</h4>
                     <div class="card mt-2"> 
                         <div class="card-header text-left">
-                            <a href="" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Tambah Pembayaran</a>
-                            <a href="" class="btn btn-danger" role="button"><i class="fas fa-trash"></i> Tempat Sampah</a>
+                            <a href="{{ route('createPayment', ['contractId' => $contract->id]) }}" class="btn btn-info" role="button"><i class="fas fa-plus"></i> Tambah Pembayaran</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -247,36 +246,33 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Jatuh Tempo</th>
                                             <th>Tahun</th>
+                                            <th>Bukti Bayar</th>
+                                            <th>Tanggal Bayar</th>
+                                            <th>Jumlah Tagihan</th>
+                                            <th>Keterangan</th>
                                             <th>Status</th>
-                                            <th>Aksi Upload</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        @foreach ($payment as $payment)
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td class="text-center">
-                                                <a href="" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
-                                                <a href="" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i>
-                                                </a>
-                                                <form id="" action="" method="POST" style="display: none;">
-                                                
-                                                </form>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $payment->invoice->compensation->tahun }}</td>
+                                            <td>
+                                                @if($payment->bukti_bayar)
+                                                    <img src="{{ Storage::url('payments/' . $payment->bukti_bayar) }}" alt="Bukti Bayar">
+                                                @else
+                                                    No Picture
+                                                @endif
                                             </td>
+                                            <td>{{ $payment->tgl_bayar }}</td>
+                                            <td>Rp {{ number_format($payment->invoice->sisa_tagihan, 0, ',', '.') }}</td>
+                                            <td>{{ $payment->ket }}</td>
+                                            <td>{{ $payment->status }}</td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th colspan="3" style="text-align: center;">Total Pembayaran</th>
-                                            <th colspan="2"></th>
-                                        </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                         </div>
